@@ -54,6 +54,6 @@ EOT
 openssl req -config prod.config -new -out prod.csr.pem
 openssl x509 -req -days 365 -extfile prod.config -extensions v3_req -in prod.csr.pem -signkey prod.key -out prod.crt
 openssl pkcs12 -export -out prod.pfx -inkey prod.key -in prod.crt -password pass:$PASSWORD
+rm prod.config prod.csr.pem
 cp prod.pfx ../MyApp
 # cp prod.crt ../MyApp/wwwroot/grpc.crt
-rm prod.config prod.csr.pem

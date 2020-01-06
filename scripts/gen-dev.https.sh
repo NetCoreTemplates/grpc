@@ -48,5 +48,5 @@ EOT
 openssl req -config dev.config -new -out dev.csr.pem
 openssl x509 -req -days 365 -extfile dev.config -extensions v3_req -in dev.csr.pem -signkey dev.key -out dev.crt
 openssl pkcs12 -export -out dev.pfx -inkey dev.key -in dev.crt -password pass:$PASSWORD
-cp dev.pfx ../MyApp
 rm dev.config dev.csr.pem
+cp dev.pfx ../MyApp
