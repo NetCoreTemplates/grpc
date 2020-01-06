@@ -15,7 +15,6 @@ namespace MyApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public new void ConfigureServices(IServiceCollection services)
         {
-            services.AddServiceStackGrpc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +46,6 @@ namespace MyApp
                 DefaultRedirectPath = "/metadata",
                 DebugMode = AppSettings.Get(nameof(HostConfig.DebugMode), false)
             });
-            
-            Plugins.Add(new GrpcFeature(App));
         }
     }
 }
