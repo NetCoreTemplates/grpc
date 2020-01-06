@@ -13,11 +13,11 @@ Please refer to gRPC docs to learn more about ServiceStack gRPC and SSL Configur
  - http://docs.servicestack.net/grpc
  - http://docs.servicestack.net/grpc-ssl
 
-By default this uses ASP.NET Core's trusted Development certificate (typically created on Install), or can be configured with:
+By default this uses ASP.NET Core's trusted Development certificate (typically created on install), or can be configured with:
 
     $ dotnet dev-certs https --trust
 
-This template also include SSL generation scripts in [scripts/](https://github.com/NetCoreTemplates/grpc/tree/master/scripts)
+This template also includes OpenSSL generation scripts in [scripts/](https://github.com/NetCoreTemplates/grpc/tree/master/scripts)
 should you prefer to use your own self-signed certificates:
 
     $ cd scripts
@@ -38,11 +38,11 @@ Options:
 
 Import the pfx certificate:
 
-    $ powershell Import-PfxCertificate -FilePath dev.https.pfx Cert:\LocalMachine\My -Password (ConvertTo-SecureString grpc -asplaintext -force) -Exportable
+    $ powershell Import-PfxCertificate -FilePath dev.pfx Cert:\LocalMachine\My -Password (ConvertTo-SecureString grpc -asplaintext -force) -Exportable
 
 Trust the certificate by importing the pfx certificate into your trusted root:
 
-    $ powershell Import-Certificate -FilePath dev.https.crt -CertStoreLocation Cert:\CurrentUser\Root
+    $ powershell Import-Certificate -FilePath dev.crt -CertStoreLocation Cert:\CurrentUser\Root
 
 ### Generating a new Production Certificate
 
