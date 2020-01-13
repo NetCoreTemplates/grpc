@@ -10,8 +10,8 @@ gRPC .NET Core 3.1 Web Template
 
 Please refer to gRPC docs to learn more about ServiceStack gRPC and SSL Configuration:
 
- - http://docs.servicestack.net/grpc
- - http://docs.servicestack.net/grpc-ssl
+ - https://docs.servicestack.net/grpc
+ - https://docs.servicestack.net/grpc-ssl
 
 By default this uses ASP.NET Core's trusted Development certificate (typically created on install), or can be configured with:
 
