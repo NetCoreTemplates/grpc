@@ -1,6 +1,6 @@
 # grpc
 
-gRPC .NET Core 3.1 Web Template
+gRPC .NET Core 5.0 Web Template
 
 > Browse [source code](https://github.com/NetCoreTemplates/grpc) and install with [x new dotnet tool](https://docs.servicestack.net/web-new):
 
