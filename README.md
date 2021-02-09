@@ -55,3 +55,9 @@ Windows:
 Linux or WSL Bash:
 
     $ ./gen-prod.https.sh <DOMAIN> <PASSWORD>
+
+### Update Server TypeScript DTOs
+
+Run the dtos package.json script to update your server dtos:
+
+    $ x scripts dtos
