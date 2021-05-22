@@ -8,6 +8,12 @@ gRPC .NET 5.0 Web Template
 
     $ x new grpc ProjectName
 
+Alternatively write new project files directly into an empty repository, using the Directory Name as the ProjectName:
+
+    $ git clone https://github.com/<User>/<ProjectName>.git
+    $ cd <ProjectName>
+    $ x new grpc
+
 Please refer to gRPC docs to learn more about ServiceStack gRPC and SSL Configuration:
 
  - https://docs.servicestack.net/grpc
