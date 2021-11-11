@@ -1,18 +1,19 @@
-using Microsoft.Extensions.DependencyInjection;
 using ServiceStack;
+
+[assembly: HostingStartup(typeof(MyApp.ConfigureGrpc))]
 
 namespace MyApp
 {
-    public class ConfigureGrpc : IConfigureServices, IConfigureAppHost
+    public class ConfigureGrpc : IHostingStartup
     {
-        public void Configure(IServiceCollection services)
-        {
-            services.AddServiceStackGrpc();
-        }
-
-        public void Configure(IAppHost appHost)
-        {
-            appHost.Plugins.Add(new GrpcFeature(appHost.GetApp()));
-        }
+        public void Configure(IWebHostBuilder builder) => builder
+            .ConfigureServices(services => services.AddServiceStackGrpc())
+            .Configure(app => {
+                app.UseRouting();
+                app.UseServiceStack(new AppHost());
+            })
+            .ConfigureAppHost(appHost => {
+                appHost.Plugins.Add(new GrpcFeature(appHost.GetApp()));
+            });
     }
 }
