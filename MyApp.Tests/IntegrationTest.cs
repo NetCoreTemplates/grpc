@@ -9,74 +9,73 @@ using MyApp.ServiceInterface;
 using MyApp.ServiceModel;
 using ProtoBuf.Grpc.Client;
 
-namespace MyApp.Tests
+namespace MyApp.Tests;
+
+public class IntegrationTest
 {
-    public class IntegrationTest
+    private const int Port = 2000;
+    static readonly string BaseUri = $"http://localhost:{Port}/";
+    private readonly ServiceStackHost appHost;
+
+    class AppHost : AppSelfHostBase
     {
-        private const int Port = 2000;
-        static readonly string BaseUri = $"http://localhost:{Port}/";
-        private readonly ServiceStackHost appHost;
+        public AppHost() : base(nameof(IntegrationTest), typeof(MyServices).Assembly) { }
 
-        class AppHost : AppSelfHostBase
+        public override void Configure(Container container)
         {
-            public AppHost() : base(nameof(IntegrationTest), typeof(MyServices).Assembly) { }
-
-            public override void Configure(Container container)
-            {
-                Plugins.Add(new GrpcFeature(App));
-            }
-
-            public override void ConfigureKestrel(KestrelServerOptions options)
-            {
-                options.ListenLocalhost(2000, listenOptions =>
-                {
-                    listenOptions.Protocols = HttpProtocols.Http2;
-                });
-            }
-
-            public override void Configure(IServiceCollection services)
-            {
-                services.AddServiceStackGrpc();
-            }
-
-            public override void Configure(IApplicationBuilder app)
-            {
-                app.UseRouting();
-            }
+            Plugins.Add(new GrpcFeature(App));
         }
 
-        public IntegrationTest()
+        public override void ConfigureKestrel(KestrelServerOptions options)
         {
-            appHost = new AppHost()
-                .Init()
-                .Start(BaseUri);
-
-            GrpcClientFactory.AllowUnencryptedHttp2 = true;
+            options.ListenLocalhost(2000, listenOptions =>
+            {
+                listenOptions.Protocols = HttpProtocols.Http2;
+            });
         }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDown() => appHost.Dispose();
-
-        [Test] // Requires Host project running on https://localhost:5001 (default)
-        public async Task Can_call_Hello_Service_WebHost()
+        public override void Configure(IServiceCollection services)
         {
-            var client = new GrpcServiceClient("https://localhost:5001");
-
-            var response = await client.GetAsync(new Hello { Name = "World" });
-
-            Assert.That(response.Result, Is.EqualTo("Hello, World!"));
+            services.AddServiceStackGrpc();
         }
 
-        public IServiceClientAsync CreateClient() => new GrpcServiceClient(BaseUri);
-
-        [Test]
-        public async Task Can_call_Hello_Service()
+        public override void Configure(IApplicationBuilder app)
         {
-            var client = CreateClient();
-
-            var response = await client.GetAsync(new Hello { Name = "World" });
-
-            Assert.That(response.Result, Is.EqualTo("Hello, World!"));
+            app.UseRouting();
         }
+    }
+
+    public IntegrationTest()
+    {
+        appHost = new AppHost()
+            .Init()
+            .Start(BaseUri);
+
+        GrpcClientFactory.AllowUnencryptedHttp2 = true;
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown() => appHost.Dispose();
+
+    [Test] // Requires Host project running on https://localhost:5001 (default)
+    public async Task Can_call_Hello_Service_WebHost()
+    {
+        var client = new GrpcServiceClient("https://localhost:5001");
+
+        var response = await client.GetAsync(new Hello { Name = "World" });
+
+        Assert.That(response.Result, Is.EqualTo("Hello, World!"));
+    }
+
+    public IServiceClientAsync CreateClient() => new GrpcServiceClient(BaseUri);
+
+    [Test]
+    public async Task Can_call_Hello_Service()
+    {
+        var client = CreateClient();
+
+        var response = await client.GetAsync(new Hello { Name = "World" });
+
+        Assert.That(response.Result, Is.EqualTo("Hello, World!"));
     }
 }
