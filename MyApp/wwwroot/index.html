@@ -12,7 +12,6 @@
     h2, h3, strong { font-weight:500 }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/atom-one-dark.min.css">
-<script async src="https://ga.jspm.io/npm:es-module-shims@1.6.3/dist/es-module-shims.js"></script><!--safari polyfill-->
 <script type="importmap">
 {
     "imports": {
@@ -28,10 +27,10 @@
 <div id="result"></div>
 
 <script type="module">
-import { JsonApiClient, $1, on } from '@servicestack/client'
+import { JsonServiceClient, $1, on } from '@servicestack/client'
 import { Hello } from '/types/mjs'
 
-const client = JsonApiClient.create()
+const client = new JsonServiceClient()
 on('#txtName', {
     /** @param {Event} el */
     async keyup(el) {
@@ -51,7 +50,7 @@ $1('#txtName').dispatchEvent(new KeyboardEvent('keyup'))
 
 - [Call API](/ui/Hello)
 - [View API Details](/ui/Hello?tab=details)
-- [Browse API source code in different langauges](/ui/Hello?tab=code)
+- [Browse API source code in different languages](/ui/Hello?tab=code)
 
 ### Using JsonServiceClient in Web Pages
 
@@ -81,10 +80,10 @@ This lets us reference the **@servicestack/client** package name in our source c
 
 ```html
 &lt;script type="module"&gt;
-import { JsonApiClient, $1, on } from '@servicestack/client'
+import { JsonServiceClient, $1, on } from '@servicestack/client'
 import { Hello } from '/types/mjs'
 
-const client = JsonApiClient.create()
+const client = new JsonServiceClient()
 on('#txtName', {
     async keyup(el) {
         const api = await client.api(new Hello({ name:el.target.value }))

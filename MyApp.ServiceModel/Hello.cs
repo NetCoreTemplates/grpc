@@ -12,10 +12,9 @@ namespace MyApp.ServiceModel;
  * ServiceStack's Structured Error Responses requires a ResponseStatus property in Response DTOs
  * and throws WebServiceException in GrpcServiceClient
  */
-[Route("/hello")]
 [Route("/hello/{Name}")]
 [DataContract]
-public class Hello : IReturn<HelloResponse>
+public class Hello : IGet, IReturn<HelloResponse>
 {
     [DataMember(Order = 1)]
     public string Name { get; set; }

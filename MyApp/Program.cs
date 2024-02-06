@@ -1,4 +1,9 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using MyApp.ServiceInterface;
+
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+
+services.AddServiceStack(typeof(MyServices).Assembly);
 
 var app = builder.Build();
 
@@ -9,6 +14,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 }
 app.UseRouting();
-app.UseServiceStack(new AppHost());
+
+app.UseServiceStack(new AppHost(), options => {
+    options.MapEndpoints();
+});
 
 app.Run();
