@@ -1,12 +1,12 @@
 # grpc
 
-gRPC .NET 6.0 Web Template
+gRPC .NET 10.0 Web Template
 
-> Browse [source code](https://github.com/NetCoreTemplates/grpc) and install with [x new dotnet tool](https://docs.servicestack.net/web-new):
+> Browse [source code](https://github.com/NetCoreTemplates/grpc) and install with:
 
-    $ dotnet tool install -g x
-
-    $ x new grpc ProjectName
+```bash
+npx create-net grpc ProjectName
+```
 
 Alternatively write new project files directly into an empty repository, using the Directory Name as the ProjectName:
 
@@ -66,4 +66,4 @@ Linux or WSL Bash:
 
 Run the dtos package.json script to update your server dtos:
 
-    $ x scripts dtos
+    $ npm run dtos

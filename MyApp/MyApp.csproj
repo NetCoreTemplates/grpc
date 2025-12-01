@@ -2,7 +2,7 @@
 
   <PropertyGroup>
   <PublishProfile>DefaultContainer</PublishProfile>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ServiceStack" Version="8.*" />
-    <PackageReference Include="ServiceStack.Extensions" Version="8.*" />
+    <PackageReference Include="ServiceStack" Version="10.*" />
+    <PackageReference Include="ServiceStack.Extensions" Version="10.*" />
   </ItemGroup>
 
   <ItemGroup>
